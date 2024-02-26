@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ type Bank struct {
 	Cards []Card
 }
 
-func (b *Bank) CheckBalance(cardNumber string) error {
+func (b *Bank) checkBalance(cardNumber string) error {
 	fmt.Printf("[Bank] Geting card's balance(%s)\n", cardNumber)
 	time.Sleep(200 * time.Millisecond)
 	for _, card := range b.Cards {

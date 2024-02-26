@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"errors"
@@ -14,7 +14,7 @@ type Shop struct {
 func (s *Shop) Sell(u User, p string) error {
 	fmt.Println("[Shop] Query to User for get balance on card")
 	time.Sleep(1000 * time.Millisecond)
-	err := u.Card.CheckBalance()
+	err := u.Card.checkBalance()
 	if err != nil {
 		return err
 	}
@@ -24,7 +24,7 @@ func (s *Shop) Sell(u User, p string) error {
 		if product.Name != p {
 			continue
 		}
-		if product.Price > u.GetBalance() {
+		if product.Price > u.getBalance() {
 			return errors.New("[Shop] Not enouth money on balance")
 		}
 		fmt.Printf("[Shop] Product [%s] bought by [%s]\n", product.Name, u.Name)

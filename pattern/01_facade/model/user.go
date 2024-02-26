@@ -1,10 +1,10 @@
-package main
+package model
 
 type User struct {
 	Name string
 	Card *Card
 }
 
-func (u *User) GetBalance() float64 {
+func (u *User) getBalance() float64 {
 	return u.Card.Balance
 }

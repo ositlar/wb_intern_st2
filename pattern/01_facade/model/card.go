@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"fmt"
@@ -11,8 +11,8 @@ type Card struct {
 	Bank    *Bank
 }
 
-func (c *Card) CheckBalance() error {
+func (c *Card) checkBalance() error {
 	fmt.Println("[Card] Query to Bank to check balance")
 	time.Sleep(time.Second)
-	return c.Bank.CheckBalance(c.Name)
+	return c.Bank.checkBalance(c.Name)
 }

@@ -1,37 +1,41 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"ositlar.com/pattern/01_facade/model"
+)
 
 var (
-	bank = Bank{
+	bank = model.Bank{
 		Name:  "NBer",
-		Cards: []Card{},
+		Cards: []model.Card{},
 	}
-	card1 = Card{
+	card1 = model.Card{
 		Name:    "crd-1",
 		Balance: 200,
 		Bank:    &bank,
 	}
-	card2 = Card{
+	card2 = model.Card{
 		Name:    "crd-2",
 		Balance: 240,
 		Bank:    &bank,
 	}
-	user1 = User{
+	user1 = model.User{
 		Name: "user-1",
 		Card: &card1,
 	}
-	user2 = User{
+	user2 = model.User{
 		Name: "user-2",
 		Card: &card2,
 	}
-	prod = Product{
+	prod = model.Product{
 		Name:  "Cheese",
 		Price: 185,
 	}
-	shop = Shop{
+	shop = model.Shop{
 		Name:     "6ka",
-		Products: []Product{prod},
+		Products: []model.Product{prod},
 	}
 )
 

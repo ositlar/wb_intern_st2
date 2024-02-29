@@ -14,53 +14,53 @@ import (
 var (
 	filePath   string
 	outputPath string
-	kFlag      int
-	nFlag      bool
-	rFlag      bool
-	uFlag      bool
+	kflag      int
+	nflag      bool
+	rflag      bool
+	uflag      bool
 )
 
 func init() {
 	flag.StringVar(&filePath, "path", "/", "path to file")
 	flag.StringVar(&outputPath, "outputPath", ".\\", "path to output file")
-	flag.IntVar(&kFlag, "k", -1, "указание колонки для сортировки")
-	flag.BoolVar(&nFlag, "n", false, "сортировать по числовому значению")
-	flag.BoolVar(&rFlag, "r", false, "сортировать в обратном порядке")
-	flag.BoolVar(&uFlag, "u", false, "не выводить повторяющиеся строки")
+	flag.IntVar(&kflag, "k", -1, "указание колонки для сортировки")
+	flag.BoolVar(&nflag, "n", false, "сортировать по числовому значению")
+	flag.BoolVar(&rflag, "r", false, "сортировать в обратном порядке")
+	flag.BoolVar(&uflag, "u", false, "не выводить повторяющиеся строки")
 }
 
 func main() {
 	flag.Parse()
-	fmt.Println(filePath, kFlag, nFlag, rFlag, uFlag)
+	fmt.Println(filePath, kflag, nflag, rflag, uflag)
 	fContent, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
 	strs := strings.Split(strings.ReplaceAll(string(fContent), "\r", ""), "\n")
-	if !nFlag { // Сортировка по строкам
-		if kFlag >= 0 {
-			if !rFlag {
+	if !nflag { // Сортировка по строкам
+		if kflag >= 0 {
+			if !rflag {
 				//Сортировка по возрастанию
 				sort.Slice(strs, func(i, j int) bool {
 					//Проверка на то, что введеная длина для сортировки меньше чем количество столбцов в строке
-					if len(strings.Split(strs[i], " ")) < kFlag || len(strings.Split(strs[j], " ")) < kFlag {
+					if len(strings.Split(strs[i], " ")) < kflag || len(strings.Split(strs[j], " ")) < kflag {
 						log.Fatal("Out of range: kFlag is bigger than string size")
 					}
-					return len(strings.Split(strs[i], " ")[kFlag]) < len(strings.Split(strs[j], " ")[kFlag])
+					return len(strings.Split(strs[i], " ")[kflag]) < len(strings.Split(strs[j], " ")[kflag])
 				})
 			} else {
 				//Сортировка по убыванию
 				sort.Slice(strs, func(i, j int) bool {
 					//Проверка на то, что введеная длина для сортировки меньше чем количество столбцов в строке
-					if len(strings.Split(strs[i], " ")) < kFlag || len(strings.Split(strs[j], " ")) < kFlag {
+					if len(strings.Split(strs[i], " ")) < kflag || len(strings.Split(strs[j], " ")) < kflag {
 						log.Fatal("Out of range: kFlag is bigger than string size")
 					}
-					return len(strings.Split(strs[i], " ")[kFlag]) > len(strings.Split(strs[j], " ")[kFlag])
+					return len(strings.Split(strs[i], " ")[kflag]) > len(strings.Split(strs[j], " ")[kflag])
 				})
 			}
 		} else {
 			//Если нет флага -k или он введен неправильно (отрицательный)
-			if !rFlag {
+			if !rflag {
 				//Сортировка по возрастанию
 				sort.Slice(strs, func(i, j int) bool {
 					return len(strs[i]) < len(strs[j])
@@ -74,7 +74,7 @@ func main() {
 		}
 
 	} else { //Сортировка по числам
-		if !rFlag {
+		if !rflag {
 			//Сортировка по возрастанию
 			sort.Slice(strs, func(i, j int) bool {
 				return ParseString(strs[i]) < ParseString(strs[j])
@@ -87,7 +87,7 @@ func main() {
 		}
 	}
 
-	if uFlag {
+	if uflag {
 		strs = slices.Compact(strs)
 	}
 	file, err := os.Create(outputPath)
@@ -101,22 +101,11 @@ func main() {
 	}
 }
 
+// ParseString ...
 func ParseString(s string) int {
 	d, err := strconv.Atoi(s)
 	if err != nil {
 		log.Fatal(err)
 	}
 	return d
-}
-
-func SliceToSet(strs []string) []string {
-	set := make(map[string]struct{})
-	result := make([]string, 0)
-	for _, value := range strs {
-		set[value] = struct{}{}
-	}
-	for key := range set {
-		result = append(result, key)
-	}
-	return result
 }

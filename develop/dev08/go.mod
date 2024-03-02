@@ -1,4 +1,4 @@
-module github.com/ositlar/dev8
+module github.com/ositlar/go-sh
 
 go 1.21.5
 

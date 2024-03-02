@@ -31,7 +31,6 @@ func init() {
 
 func main() {
 	flag.Parse()
-	fmt.Println(filePath, kflag, nflag, rflag, uflag)
 	fContent, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err)

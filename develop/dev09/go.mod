@@ -1,4 +1,4 @@
-module github.com/ositlar/dev9
+module github.com/ositlar/go-wget
 
 go 1.21.5
 

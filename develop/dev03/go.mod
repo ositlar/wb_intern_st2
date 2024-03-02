@@ -1,4 +1,4 @@
-module github.com/ositlar/dev3
+module github.com/ositlar/go-sort
 
 go 1.21.5
 

@@ -1,4 +1,4 @@
-module github.com/ositlar/dev4
+module github.com/ositlar/go-anagram
 
 go 1.21.5
 

@@ -18,7 +18,7 @@ import (
 
 const fileOutput = "output.html"
 
-func writeHtmlBodyToFile(file string, response http.Response) error {
+func writeHTMLBodyToFile(file string, response http.Response) error {
 	data, err := os.Create(file)
 	if err != nil {
 		return err
@@ -43,7 +43,7 @@ func wget(file, url string) error {
 	if err != nil {
 		return err
 	}
-	err = writeHtmlBodyToFile(file, *r)
+	err = writeHTMLBodyToFile(file, *r)
 	if err != nil {
 		return err
 	}

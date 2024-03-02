@@ -1,4 +1,4 @@
-module github.com/ositlar/dev5
+module github.com/ositlar/go-grep
 
 go 1.21.5
 

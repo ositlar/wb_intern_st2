@@ -26,6 +26,7 @@ import (
 Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
 
+// Flags
 var (
 	A int
 	B int
@@ -304,6 +305,7 @@ func main() {
 
 }
 
+// FindIndex ...
 func FindIndex(content []string, target string) int {
 	for j := range content {
 		if i {
@@ -320,6 +322,7 @@ func FindIndex(content []string, target string) int {
 	return -1
 }
 
+// FindIndexFixed ...
 func FindIndexFixed(content []string, target string) int {
 	for j := range content {
 		if i {

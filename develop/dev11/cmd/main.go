@@ -43,12 +43,12 @@ func main() {
 		log.Fatal(err)
 	}
 	mux := http.NewServeMux()
-	mux.HandleFunc("/create_event", handlers.CreateEventHandler) //Post
-	// mux.HandleFunc("/update_event", handler.UpdateEventHandler)        //Post
-	// mux.HandleFunc("/delete_event", handler.DeleteEventHandler)        //Post
-	// mux.HandleFunc("/events_for_day", handler.EventsForDayHandler)     //Get
-	// mux.HandleFunc("/events_for_week", handler.EventsForWeekHandler)   //Get
-	// mux.HandleFunc("/events_for_month", handler.EventsForMonthHandler) //Get
+	mux.HandleFunc("/create_event", handlers.CreateEventHandler)        //Post
+	mux.HandleFunc("/update_event", handlers.UpdateEventHandler)        //Post
+	mux.HandleFunc("/delete_event", handlers.DeleteEventHandler)        //Post
+	mux.HandleFunc("/events_for_day", handlers.EventsForDayHandler)     //Get
+	mux.HandleFunc("/events_for_week", handlers.EventsForWeekHandler)   //Get
+	mux.HandleFunc("/events_for_month", handlers.EventsForMonthHandler) //Get
 
 	if err = http.ListenAndServe(config, middleware.Middleware(mux)); err != nil {
 		log.Fatal(err)

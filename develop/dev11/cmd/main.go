@@ -1,5 +1,14 @@
 package main
 
+import (
+	"log"
+	"net/http"
+
+	"github.com/ositlar/go-http/internal/config"
+	"github.com/ositlar/go-http/internal/handlers"
+	"github.com/ositlar/go-http/internal/middleware"
+)
+
 /*
 === HTTP server ===
 
@@ -9,7 +18,13 @@ package main
 	2. Реализовать вспомогательные функции для парсинга и валидации параметров методов /create_event и /update_event.
 	3. Реализовать HTTP обработчики для каждого из методов API, используя вспомогательные функции и объекты доменной области.
 	4. Реализовать middleware для логирования запросов
-Методы API: POST /create_event POST /update_event POST /delete_event GET /events_for_day GET /events_for_week GET /events_for_month
+Методы API:
+POST /create_event
+POST /update_event
+POST /delete_event
+GET /events_for_day
+GET /events_for_week
+GET /events_for_month
 Параметры передаются в виде www-url-form-encoded (т.е. обычные user_id=3&date=2019-09-09).
 В GET методах параметры передаются через queryString, в POST через тело запроса.
 В результате каждого запроса должен возвращаться JSON документ содержащий либо {"result": "..."} в случае успешного выполнения метода,
@@ -23,5 +38,20 @@ package main
 */
 
 func main() {
+	config, err := config.ConfigureServer("configs\\server.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	mux := http.NewServeMux()
+	mux.HandleFunc("/create_event", handlers.CreateEventHandler) //Post
+	// mux.HandleFunc("/update_event", handler.UpdateEventHandler)        //Post
+	// mux.HandleFunc("/delete_event", handler.DeleteEventHandler)        //Post
+	// mux.HandleFunc("/events_for_day", handler.EventsForDayHandler)     //Get
+	// mux.HandleFunc("/events_for_week", handler.EventsForWeekHandler)   //Get
+	// mux.HandleFunc("/events_for_month", handler.EventsForMonthHandler) //Get
+
+	if err = http.ListenAndServe(config, middleware.Middleware(mux)); err != nil {
+		log.Fatal(err)
+	}
 
 }
